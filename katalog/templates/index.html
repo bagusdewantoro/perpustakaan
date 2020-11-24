@@ -1,0 +1,16 @@
+{% extends "dasar.html" %}
+
+{% block title %}Perpustakaan{% endblock %}
+
+{% block content %}
+ <h1>Perpustakaan</h1>
+ <p>Selamat datang di situs Perpustakaan kami!</p>
+ <h2>Konten dinamis</h2>
+ <p>Berikut adalah koleksi kami:</p>
+ <ul>
+   <li><strong>Buku:</strong> {{ jml_buku }} </li>
+   <li><strong><i>Copies</i>:</strong> {{ jml_copy }} </li>
+   <li><strong><i>Copies</i> tersedia:</strong> {{ jml_copy_ada }} </li>
+   <li><strong>Penulis:</strong> {{ jml_penulis }} </li>
+  </ul>
+{% endblock %}
