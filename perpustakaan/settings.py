@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-# import os    # sebab kalo di tutorial, templates DIRS pakai os.path.join.....
+import os    # sebab kalo di tutorial, templates DIRS pakai os.path.join.....
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -57,8 +57,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # os.path.join(BASE_DIR, 'templates'), # CARA DI TUTORIAL --> dulu masih import OS
-            './templates',   # CARA BAGUS --> karena sekarang ngga ada import OS lagi
+            os.path.join(BASE_DIR, 'templates'), # CARA DI TUTORIAL --> dulu masih import OS
+            #'./templates',   # CARA BAGUS --> karena sekarang ngga ada import OS lagi
         ],
         'APP_DIRS': True,
         'OPTIONS': {

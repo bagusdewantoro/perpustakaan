@@ -1,0 +1,16 @@
+{% extends "dasar.html" %}
+
+{% block content %}
+  <h1>Koleksi Buku</h1>
+  {% if koleksi_buku %}
+  <ul>
+    {% for abcd in koleksi_buku %}
+      <li>
+        <a href="{{ abcd.get_absolute_url }}">{{ abcd.judul }}</a> ({{ abcd.penulis }})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}
+{% endblock %}

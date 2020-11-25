@@ -70,7 +70,7 @@ class Buku(models.Model):
 
     def get_absolute_url(self):
         """Return url untuk mengakses detail dari buku ini"""
-        return reverse('detail-buku', args=[str(self.kode)])
+        return reverse('detail-buku', args=[str(self.id)])
 
     # Tambahan method untuk menampilkan jenis buku Admin
     def jenis_buku(self):
@@ -86,7 +86,7 @@ import uuid  # python module = Universally Unique Identifiers
 
 class InstanceBuku(models.Model):
     """Model untuk menyatakan copy-an tertentu dari sebuah buku (yang mungkin sedang dipinjam di perpustakaan)"""
-    kode = models.UUIDField('Kode Copy', primary_key=True, default=uuid.uuid4, \
+    id = models.UUIDField('Kode Copy', primary_key=True, default=uuid.uuid4, \
                         help_text='Kode unik untuk buku tertentu di seluruh perpustakaan')
     buku = models.ForeignKey('Buku', verbose_name='Judul Buku', on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200)
@@ -111,7 +111,7 @@ class InstanceBuku(models.Model):
     def __str__(self):
         """String yang menyatakan object Model"""
         # yang akan ditampilkan di data admin
-        return f'{self.kode} ({self.buku.judul})'
+        return f'{self.id} ({self.buku.judul})'
 
 
 # =====================
@@ -137,4 +137,4 @@ class Penulis(models.Model):
 
     def get_absolute_url(self):
         """Return URL untuk mengakses instansce pengarang tertentu"""
-        return reverse('detail-penulis', args=[str(self.kode)])
+        return reverse('detail-penulis', args=[str(self.id)])

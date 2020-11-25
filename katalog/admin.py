@@ -43,9 +43,9 @@ class BukuAdmin(admin.ModelAdmin):
 @admin.register(InstanceBuku)
 class InstanceBukuAdmin(admin.ModelAdmin):
     list_filter = ('status', 'kembali') # display filter box
-    list_display = ('buku', 'kode', 'status')
+    list_display = ('buku', 'id', 'status')
 
     fieldsets = (
-        (None, {'fields': ('buku', 'imprint', 'kode')}),
+        (None, {'fields': ('buku', 'imprint', 'id')}),
         ('Ketersediaan', {'fields': ('status', 'kembali')})
     )

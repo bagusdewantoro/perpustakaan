@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from katalog.models import Buku, Penulis, Jenis, InstanceBuku
+from django.views import generic
 
 def index(request):
     """Fungsi view untuk home page"""
@@ -23,3 +24,12 @@ def index(request):
 
     # render template html index.html dengan data di dalam variabel context
     return render(request, 'index.html', context=konteks)
+
+
+class BukuListView(generic.ListView):
+    model = Buku
+    context_object_name = 'koleksi_buku'   # default = buku_list   (context di dalam templatenya)
+    template_name = 'katalog/daftar_buku.html'  # default = buku_list   (lokasi & nama file html)
+
+class BukuDetailView(generic.DetailView):
+    model = Buku
