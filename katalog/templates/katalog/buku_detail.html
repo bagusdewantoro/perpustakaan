@@ -5,7 +5,25 @@
   <p><strong>Penulis:</strong> <a href="">{{ buku.penulis }}</a></p>
   <p><strong>Resensi:</strong> {{ buku.resensi }}</p>
   <p><strong>ISBN:</strong> {{ buku.isbn }}</p>
-  <p><strong>Bahasa:</strong> {{ buku. bahasa }}</p>
+  <p><strong>Bahasa:</strong> {{ buku.bahasa }}</p>
   <p><strong>Jenis Buku:</strong> {{buku.jenis.all|join:", "}}</p>
 
-  <div style
+  <div style="margin-left:20px; margin-top:20px">
+    <h4>Edisi & Jumlah Buku:</h4>
+
+    {% for asdf in buku.instancebuku_set.all %}
+      <hr>
+      <p class = "{% if asdf.status == 'a' %}text-success{% elif asdf.status == 'p' %}text-danger
+                {% else %}text-warning{% endif %}" style = "text-transform:capitalize; font-style:italic;">
+                <!-- bootstrap class for text-color -->
+                <!-- css for style (capitalize & font-style) -->
+          {{ asdf.get_status_display }}
+      </p>
+      {% if asdf.status != 'a' %}
+        <p><strong>Akan tersedia pada tanggal:</strong> {{ asdf.kembali }}</p>
+      {% endif %}
+      <p><strong>Edisi:</strong> {{ asdf.imprint }}
+      <p class = "text-muted"><strong>Kode:</strong> {{ asdf.id }}</p>
+    {% endfor %}
+  </div>  
+{% endblock %}

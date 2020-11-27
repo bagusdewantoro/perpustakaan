@@ -29,7 +29,8 @@ def index(request):
 class BukuListView(generic.ListView):
     model = Buku
     context_object_name = 'koleksi_buku'   # default = buku_list   (context di dalam templatenya)
-    template_name = 'katalog/daftar_buku.html'  # default = buku_list   (lokasi & nama file html)
+    template_name = 'katalog/daftar_buku.html'  # default = buku_list.html   (lokasi & nama file html)
 
 class BukuDetailView(generic.DetailView):
     model = Buku
+    # context_object_name  by default = buku_detail
