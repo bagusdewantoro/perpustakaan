@@ -9,7 +9,7 @@
   <p><strong>Jenis Buku:</strong> {{buku.jenis.all|join:", "}}</p>
 
   <div style="margin-left:20px; margin-top:20px">
-    <h4>Edisi & Jumlah Buku:</h4>
+    <h4>Status & Edisi:</h4>
 
     {% for asdf in buku.instancebuku_set.all %}
       <hr>
@@ -25,5 +25,5 @@
       <p><strong>Edisi:</strong> {{ asdf.imprint }}
       <p class = "text-muted"><strong>Kode:</strong> {{ asdf.id }}</p>
     {% endfor %}
-  </div>  
+  </div>
 {% endblock %}
