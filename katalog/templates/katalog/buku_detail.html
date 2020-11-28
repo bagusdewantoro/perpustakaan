@@ -2,13 +2,13 @@
 
 {% block content %}
   <h1>Judul: {{ buku.judul }}</h1>
-  <p><strong>Penulis:</strong> <a href="">{{ buku.penulis }}</a></p>
+  <p><strong>Penulis:</strong> <a href="{% url 'detail-penulis' buku.penulis.pk %}">{{ buku.penulis }}</a></p>
   <p><strong>Resensi:</strong> {{ buku.resensi }}</p>
   <p><strong>ISBN:</strong> {{ buku.isbn }}</p>
   <p><strong>Bahasa:</strong> {{ buku.bahasa }}</p>
   <p><strong>Jenis Buku:</strong> {{buku.jenis.all|join:", "}}</p>
 
-  <div style="margin-left:20px; margin-top:20px">
+  <div style="margin-left:20px; margin-top:20px;">
     <h4>Status & Edisi:</h4>
 
     {% for asdf in buku.instancebuku_set.all %}
@@ -25,5 +25,6 @@
       <p><strong>Edisi:</strong> {{ asdf.imprint }}
       <p class = "text-muted"><strong>Kode:</strong> {{ asdf.id }}</p>
     {% endfor %}
+
   </div>
 {% endblock %}

@@ -59,6 +59,7 @@ class Buku(models.Model):
     bahasa = models.ForeignKey('Bahasa', on_delete=models.SET_NULL, null=True)
 
     class Meta:
+        ordering = ['judul']
         # Tambahkan Verbose Name (tambahkan 2 atribut dari class Meta di bawah ini)
         verbose_name = 'Buku'
         verbose_name_plural = 'Buku'

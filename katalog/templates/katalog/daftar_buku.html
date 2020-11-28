@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1>Koleksi Buku</h1>
+
   {% if koleksi_buku %}
   <ul>
     {% for abcd in koleksi_buku %}
@@ -13,4 +14,5 @@
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}
+
 {% endblock %}

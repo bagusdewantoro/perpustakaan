@@ -26,12 +26,18 @@ def index(request):
     return render(request, 'index.html', context=konteks)
 
 
-class BukuListView(generic.ListView):
+class BukuListView(generic.ListView):    # nama class boleh diganti, asal sama kaya di urls.py
     model = Buku
     context_object_name = 'koleksi_buku'   # default = buku_list   (context di dalam templatenya)
     template_name = 'katalog/daftar_buku.html'  # default = buku_list.html   (lokasi & nama file html)
     paginate_by = 5
 
-class BukuDetailView(generic.DetailView):
+class BukuDetailView(generic.DetailView):   # nama class boleh diganti, asal sama kaya di urls.py
     model = Buku
     # context_object_name  by default = buku_detail
+
+class PenulisListView(generic.ListView):
+    model = Penulis
+
+class PenulisDetailView(generic.DetailView):
+    model = Penulis
