@@ -59,6 +59,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'), # CARA DI TUTORIAL --> dulu masih import OS
             #'./templates',   # CARA BAGUS --> karena sekarang ngga ada import OS lagi
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -123,3 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# tambahkan gambar
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

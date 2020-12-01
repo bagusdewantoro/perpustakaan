@@ -1,0 +1,21 @@
+{% extends "dasar.html" %}
+
+{% block content %}
+  <h1>Penulis: {{ penulis }}</h1>
+  <p>{{ penulis.tanggal_lahir }} - {{ penulis.tanggal_wafat }}</p>
+
+  <div style="margin-left:20px; margin-top:20px;">
+    <h4>Buku:</h4>
+    <hr width="50%"; align="left";>
+
+    <dl>
+    {% for qwer in penulis.buku_set.all %}
+      <dt><a href="{% url 'detail-buku' qwer.pk %}">{{ qwer }}</a> ({{ qwer.instancebuku_set.all.count }} buku)</dt>
+      <dd><i>Bahasa {{ qwer.bahasa }}</i></dd>
+      <dd>{{ qwer.resensi }}</dd>
+      <hr width="95%"; align="left";>
+    {% endfor %}
+    </dl>
+
+  </div>
+{% endblock %}

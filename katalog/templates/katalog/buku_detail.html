@@ -8,6 +8,12 @@
   <p><strong>Bahasa:</strong> {{ buku.bahasa }}</p>
   <p><strong>Jenis Buku:</strong> {{buku.jenis.all|join:", "}}</p>
 
+<!-- menambahkan gambar jika ada, dan biarkan kosong jika blank, maka harus pakai if statement -->
+  {% if buku.figure %}
+      <img src="{{ buku.figure.url }}">
+  {% endif %}
+
+
   <div style="margin-left:20px; margin-top:20px;">
     <h4>Status & Edisi:</h4>
 

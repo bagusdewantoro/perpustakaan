@@ -44,6 +44,9 @@ class Buku(models.Model):
     """Model untuk menyatakan sebuah buku"""
     judul = models.CharField(max_length=200)
 
+    figure = models.ImageField(upload_to='static/img', null=True,
+                                blank=True)
+
     penulis = models.ForeignKey('Penulis', on_delete=models.SET_NULL, null=True)
     # pakai ForeignKey karena 1 buku hanya punya 1 penulis; tapi 1 penulis bisa punya banyak buku
     # penulis masih string, belum sebagai object
