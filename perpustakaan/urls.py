@@ -40,3 +40,8 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # tambahkan gambar
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# tambahkan authentication urls (untuk login, logout, password management)
+urlpatterns += [
+    path('akun/', include('django.contrib.auth.urls')),
+]

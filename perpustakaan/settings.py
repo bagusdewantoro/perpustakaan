@@ -59,7 +59,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'), # CARA DI TUTORIAL --> dulu masih import OS
-            #'./templates',   # CARA BAGUS --> karena sekarang ngga ada import OS lagi
+            #  './templates',   # ini adalah CARA BAGUS --> karena sekarang ngga ada import OS lagi
 
         ],
         'APP_DIRS': True,
@@ -130,3 +130,6 @@ STATIC_URL = '/static/'
 # tambahkan gambar
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Redirect ke home URL setelah login (Default redirects untuk /akun/profile/)
+LOGIN_REDIRECT_URL = '/'

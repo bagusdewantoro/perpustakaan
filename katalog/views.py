@@ -15,11 +15,16 @@ def index(request):
     # all() sudah tersirat by default
     jml_penulis = Penulis.objects.count()
 
+    # menghitung jumlah visit di views ini, terhitung dari variabel SESSION
+    jml_visits = request.session.get('jml_visits', 1)
+    request.session['jml_visits'] = jml_visits + 1
+
     konteks = {
         'jml_buku': jml_buku,
         'jml_copy': jml_copy,
         'jml_copy_ada': jml_copy_ada,
         'jml_penulis': jml_penulis,
+        'jml_visits' : jml_visits,   # konteks jumlah visit
     }
 
     # render template html index.html dengan data di dalam variabel context
