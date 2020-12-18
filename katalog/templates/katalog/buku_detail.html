@@ -10,7 +10,9 @@
 
 <!-- menambahkan gambar jika ada, dan biarkan kosong jika blank, maka harus pakai if statement -->
   {% if buku.figure %}
-      <img src="{{ buku.figure.url }}">
+    <img src="{{ buku.figure.url }}" style="height:200px;width:auto;">
+  {% else %}
+    <p><i>Gambar tidak tersedia</i><p>
   {% endif %}
 
 

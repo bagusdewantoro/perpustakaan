@@ -39,6 +39,7 @@ class Bahasa(models.Model):
 # class untuk model buku:
 # =======================
 from django.urls import reverse # generate URLs dengan membalikkan URL patterns
+from django.utils.html import mark_safe #tampilkan gambar di admin
 
 class Buku(models.Model):
     """Model untuk menyatakan sebuah buku"""
@@ -46,6 +47,13 @@ class Buku(models.Model):
 
     figure = models.ImageField(upload_to='static/img', null=True,
                                 blank=True)
+
+    # tampilkan gambar di admin
+    @property
+    def figure_preview(self):
+        if self.figure:
+            return mark_safe('<img src="{}" width="auto" height="100" />'.format(self.figure.url))
+        return ""
 
     penulis = models.ForeignKey('Penulis', on_delete=models.SET_NULL, null=True)
     # pakai ForeignKey karena 1 buku hanya punya 1 penulis; tapi 1 penulis bisa punya banyak buku
