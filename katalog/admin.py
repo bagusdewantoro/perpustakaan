@@ -59,9 +59,11 @@ class BukuAdmin(ImportExportModelAdmin):  # argumen untuk tombol export-import
 @admin.register(InstanceBuku)
 class InstanceBukuAdmin(ImportExportModelAdmin):  # argumen untuk tombol export-import
     list_filter = ('status', 'kembali') # display filter box
-    list_display = ('buku', 'id', 'status')
+    list_display = ('buku', 'status', 'peminjam', 'kembali', 'id')
 
     fieldsets = (
-        (None, {'fields': ('buku', 'imprint', 'id')}),
-        ('Ketersediaan', {'fields': ('status', 'kembali')})
+        (None, {'fields':
+            ('buku', 'imprint', 'id')}),
+        ('Ketersediaan',
+            {'fields': ('status', 'kembali', 'peminjam')}),
     )

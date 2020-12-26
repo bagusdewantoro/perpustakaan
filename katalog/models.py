@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.contrib.auth.models import User    # memasukkan User, sehingga bisa dipakai di class-class di bawah ini
+from datetime import date       # terkait dengan informasi tanggal peminjaman yang sudah lewat
 
 class Jenis(models.Model):
     """Model untuk menyatakan jenis/aliran buku"""
@@ -114,11 +115,21 @@ class InstanceBuku(models.Model):
     status = models.CharField('Status Buku', max_length=1, choices=STATUS_SEWA, blank=True, \
                             default='p', help_text='Ketersediaan buku')
 
+    # menghubungkan User dengan Book Instance:
+    peminjam = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
     class Meta:
         ordering = ['kembali']
         # Tambahkan Verbose Name (tambahkan 2 atribut dari class Meta di bawah ini)
         verbose_name = 'Daftar Instance Buku'
         verbose_name_plural = 'Daftar Instance Buku'
+
+    # menampilkan informasi jika tanggal pengembalian sudah lewat:
+    @property
+    def terlambat(self):
+        if self.kembali and date.today() > self.kembali:
+            return True
+        return False  
 
     def __str__(self):
         """String yang menyatakan object Model"""

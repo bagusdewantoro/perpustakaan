@@ -35,7 +35,7 @@ class BukuListView(generic.ListView):    # nama class boleh diganti, asal sama k
     model = Buku
     context_object_name = 'koleksi_buku'   # default = buku_list   (context di dalam templatenya)
     template_name = 'katalog/daftar_buku.html'  # default = buku_list.html   (lokasi & nama file html)
-    paginate_by = 5
+    paginate_by = 7
 
 class BukuDetailView(generic.DetailView):   # nama class boleh diganti, asal sama kaya di urls.py
     model = Buku
@@ -44,5 +44,7 @@ class BukuDetailView(generic.DetailView):   # nama class boleh diganti, asal sam
 class PenulisListView(generic.ListView):
     model = Penulis
 
-class PenulisDetailView(generic.DetailView):
+from django.contrib.auth.mixins import LoginRequiredMixin   # membuat VIEWS ini restricted : Harus login dulu untuk bisa mengakses
+class PenulisDetailView(LoginRequiredMixin, generic.DetailView): # masukkan 'LoginRequiredMixin' sebagai argumen pertama sebelum views
     model = Penulis
+    login_url = '/akun/login/' # tambahkan object ini supaya bisa restricted hanya Users
