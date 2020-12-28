@@ -129,7 +129,7 @@ class InstanceBuku(models.Model):
     def terlambat(self):
         if self.kembali and date.today() > self.kembali:
             return True
-        return False  
+        return False
 
     def __str__(self):
         """String yang menyatakan object Model"""
