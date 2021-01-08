@@ -43,5 +43,5 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # tambahkan authentication urls (untuk login, logout, password management)
 urlpatterns += [
-    path('akun/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

@@ -1,0 +1,19 @@
+{% extends "dasar.html" %}
+
+{% block content %}
+    <h1>Buku Yang Saya Pinjam</h1>
+
+    {% if instancebuku_list %}
+    <ul>
+
+      {% for apaaja in instancebuku_list %}
+      <li class="{% if apaaja.terlambat %}text-danger{% endif %}">
+        <a href="{% url 'detail-buku' apaaja.buku.pk %}">{{apaaja.buku.judul}}</a> ({{ apaaja.kembali }})
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>Tidak ada buku yang dipinjam.</p>
+    {% endif %}
+{% endblock %}

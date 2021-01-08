@@ -123,6 +123,8 @@ class InstanceBuku(models.Model):
         # Tambahkan Verbose Name (tambahkan 2 atribut dari class Meta di bawah ini)
         verbose_name = 'Daftar Instance Buku'
         verbose_name_plural = 'Daftar Instance Buku'
+        # data permission = tuple (nama permission, nama yang ditampilkan)
+        permissions = (("bisa_tandai_kembali", "Tandai bahwa sudah dikembalikan"),)
 
     # menampilkan informasi jika tanggal pengembalian sudah lewat:
     @property
