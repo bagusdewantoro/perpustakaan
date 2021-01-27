@@ -1,0 +1,14 @@
+{% extends "dasar.html" %}
+
+{% block content %}
+  <h1>Perbarui: {{ buku_instance.buku.judul }}</h1>
+  <p>Peminjam: {{ buku_instance.peminjam }}</p>
+  <p {% if buku_instance.terlambat  %} class="text-danger" {% endif %}>
+    Tanggal Pengembalian: {{ buku_instance.kembali }}</p>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>{{ form.as_table }}</table>
+    <input type="submit" value="Masukkan">
+  </form>
+{% endblock %}

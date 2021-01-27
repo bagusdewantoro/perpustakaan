@@ -8,7 +8,14 @@
 
       {% for apapun in instancebuku_list %}
       <li class="{% if apapun.terlambat %}text-danger{% endif %}">
-        <a href="{% url 'detail-buku' apapun.buku.pk %}">{{apapun.buku.judul}}</a> ({{ apapun.kembali }}) {% if user.is_staff %}- {{ apapun.peminjam }}{% endif %} 
+        <a href="{% url 'detail-buku' apapun.buku.pk %}">{{apapun.buku.judul}}</a>
+        ({{ apapun.kembali }})
+        {% if user.is_staff %}
+          - {{ apapun.peminjam }}
+        {% endif %}
+        {% if perms.katalog.bisa_tandai_kembali %}
+          - <a href="{% url 'perbarui-buku-pustakawan' apapun.id %}">Perbarui</a>
+        {% endif %}
       </li>
       {% endfor %}
     </ul>

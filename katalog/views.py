@@ -4,6 +4,15 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin   # membuat VIEWS ini restricted : Harus login dulu untuk bisa mengakses
 from django.contrib.auth.mixins import PermissionRequiredMixin  # membuat VIEWS ini hanya bisa diakses oleh user dengan PERMISSION
 
+# terkait form perbarui buku:
+import datetime
+from django.contrib.auth.decorators import login_required, permission_required
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from katalog.forms import PerbaruiBukuForm
+
+
 def index(request):
     """Fungsi view untuk home page"""
 
@@ -70,3 +79,34 @@ class SeluruhBukuDipinjamListView(PermissionRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return InstanceBuku.objects.filter(status__exact='s').order_by('kembali')
+
+
+# views FORM untuk pustakawan memperbarui tanggal pengembalian pinjaman buku
+@login_required
+@permission_required('katalog.bisa_tandai_kembali', raise_exception=True)
+def perbarui_buku_pustakawan(request, pk):
+    buku_instance = get_object_or_404(InstanceBuku, pk=pk)
+
+    # jika ini adalah POST request, maka lakukan proses data Form
+    if request.method == 'POST':
+        # membuat instance form dan populate form tsb dengan data dari requst (binding)
+        form = PerbaruiBukuForm(request.POST)
+        # cek jika form sudah valid:
+        if form.is_valid():
+            # memproses data di form.cleaned_data
+            buku_instance.kembali = form.cleaned_data['perbarui_tanggal']
+            buku_instance.save()
+            # redirect ke url:
+            return HttpResponseRedirect(reverse('seluruh-pinjaman'))
+
+    # jika ini adalah GET (atau metode lain), buatlah default form.
+    else:
+        usulan_perbarui_tanggal = datetime.date.today() + datetime.timedelta(weeks=3)
+        form = PerbaruiBukuForm(initial={'perbarui_tanggal' : usulan_perbarui_tanggal})
+
+    context = {
+        'form' : form,
+        'buku_instance' : buku_instance,
+    }
+
+    return render(request, 'katalog/buku_perbarui_pustakawan.html', context)
