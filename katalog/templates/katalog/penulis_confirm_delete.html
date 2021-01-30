@@ -1,0 +1,10 @@
+{% extends 'dasar.html' %}
+
+{% block content %}
+  <h1>Hapus Data Penulis</h1>
+  <p>Apakah anda yakin untuk menghapus data penulis: {{ penulis }}?</p>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Ya">
+  </form>
+{% endblock %}

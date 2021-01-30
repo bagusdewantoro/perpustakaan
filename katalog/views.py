@@ -4,13 +4,18 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin   # membuat VIEWS ini restricted : Harus login dulu untuk bisa mengakses
 from django.contrib.auth.mixins import PermissionRequiredMixin  # membuat VIEWS ini hanya bisa diakses oleh user dengan PERMISSION
 
-# terkait form perbarui buku:
+# form perbarui buku:
 import datetime
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from katalog.forms import PerbaruiBukuForm
+
+# form modifikasi PENULIS & BUKU
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from katalog.models import Penulis, Buku
 
 
 def index(request):
@@ -81,6 +86,7 @@ class SeluruhBukuDipinjamListView(PermissionRequiredMixin, generic.ListView):
         return InstanceBuku.objects.filter(status__exact='s').order_by('kembali')
 
 
+# =========================================================================
 # views FORM untuk pustakawan memperbarui tanggal pengembalian pinjaman buku
 @login_required
 @permission_required('katalog.bisa_tandai_kembali', raise_exception=True)
@@ -110,3 +116,48 @@ def perbarui_buku_pustakawan(request, pk):
     }
 
     return render(request, 'katalog/buku_perbarui_pustakawan.html', context)
+
+
+# =========================================================================
+# FORM untuk modifikasi PENULIS
+class PenulisCreate(CreateView):
+    model = Penulis
+    fields = ['nama_depan', 'nama_belakang', 'tanggal_lahir', 'tanggal_wafat']
+    initial = {'tanggal_lahir': '11/06/1970'}
+    permission_required = 'katalog.bisa_tandai_kembali'
+
+class PenulisUpdate(UpdateView):
+    model = Penulis
+    fields = '__all__' # NOT Recommended. Security issue jika fields baru ditambahkan
+    permission_required = 'katalog.bisa_tandai_kembali'
+
+# By Default, nama templatenya harus: namaclassdimodel_form.html --> contoh penulis_form.html
+# Untuk ganti suffix selain 'form', bisa tambah field template_name_suffix = 'othersuffix'
+
+class PenulisDelete(DeleteView):
+    model = Penulis
+    success_url = reverse_lazy('penulis')
+    permission_required = 'katalog.bisa_tandai_kembali'
+# By Default, nama templatenya harus: namaclassdimodel_confirm_delete.html --> contoh penulis_confirm_delete.html
+
+
+# =========================================================================
+# FORM untuk modifikasi BUKU
+class BukuCreate(CreateView):
+    model = Buku
+    fields = ['judul', 'figure', 'penulis', 'resensi', 'isbn', 'jenis', 'bahasa']
+    permission_required = 'katalog.bisa_tandai_kembali'
+
+class BukuUpdate(UpdateView):
+    model = Buku
+    fields = '__all__' # NOT Recommended. Security issue jika fields baru ditambahkan
+    permission_required = 'katalog.bisa_tandai_kembali'
+
+# By Default, nama templatenya harus: namaclassdimodel_form.html --> contoh buku_form.html
+# Untuk ganti suffix selain 'form', bisa tambah field template_name_suffix = 'othersuffix'
+
+class BukuDelete(DeleteView):
+    model = Buku
+    success_url = reverse_lazy('penulis')
+    permission_required = 'katalog.bisa_tandai_kembali'
+# By Default, nama templatenya harus: namaclassdimodel_confirm_delete.html --> contoh buku_confirm_delete.html
